@@ -7,7 +7,8 @@ picam2 = Picamera2()
 
 # YOLO 추론 속도를 높이고 메모리를 아끼기 위해 메인 스트림 해상도를 적절하게 조절합니다.
 # (YOLO Nano 모델은 기본적으로 640x640 크기 내외에서 효율적입니다.)
-picam2.preview_configuration.main.size = (640, 480)
+# picam2.preview_configuration.main.size = (640, 480)
+picam2.preview_configuration.main.size = (1280, 720)
 # YOLO와 OpenCV 처리를 위해 RGB 포맷 설정
 picam2.preview_configuration.main.format = 'RGB888'
 picam2.preview_configuration.align()
@@ -42,9 +43,8 @@ try:
     # 5. 화면에 실시간 결과 출력
     cv2.imshow('Picamera2 + YOLO Detection', annotated_frame)
     
-    # 'q' 키를 누르면 루프 탈출
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-      break
+    # 'q' or 'ESC' 키를 누르면 루프 탈출
+    if cv2.waitKey(1) in [27, 113]: break
 
 finally:
   # 6. 자원 해제 및 종료
