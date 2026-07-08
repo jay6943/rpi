@@ -10,7 +10,7 @@ def one_hour_stand_up():
     
     # 현재 시간이 09:00 ~ 18:00 사이인지 확인
     if 9 <= now.hour <= 18:
-        print(f"[{now.strftime('%H:%M:%S')}] 운동")
+      send_to_discord(f'{now.strftime('%H:%M:%S')}, 운동하실 시간입니다.')
     
     # 다음 정각(예: 10:00:00)까지 남은 시간(초) 계산
     next_hour = (now + dt.timedelta(hours=1)).replace(minute=0, second=0, microsecond=0)
@@ -18,7 +18,6 @@ def one_hour_stand_up():
     
     # 다음 정각까지 프로그램 대기
     time.sleep(sleep_seconds)
-    send_to_discord('운동하실 시간입니다.')
 
 
 def send_to_discord(message):
