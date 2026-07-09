@@ -9,7 +9,7 @@ def one_hour_stand_up():
     now = dt.datetime.now()
     
     # 현재 시간이 09:00 ~ 18:00 사이인지 확인
-    if 9 <= now.hour <= 18:
+    if now.hour in [10, 11, 14, 15, 16, 17]:
       send_to_discord(f'{now.strftime('%H:%M:%S')}, 운동하실 시간입니다.')
     
     # 다음 정각(예: 10:00:00)까지 남은 시간(초) 계산
