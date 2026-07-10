@@ -15,7 +15,8 @@ face_cascade = cv2.CascadeClassifier(
 
 person_detected_start = None
 cooldown_until = 0
-set_time = 5
+cooldown_time = 60
+set_time = 1
 
 print('시스템 시작... 카메라 화면을 표시합니다.')
 print('(종료하려면 화면에서 ESC키를 누르세요)')
@@ -47,15 +48,14 @@ while True:
       
       # 5초 이상 지속적으로 감지되었고, 쿨다운 시간이 지났을 경우 캡처
       if elapsed_time > set_time and current_time > cooldown_until:
-        timestamp = time.strftime('%Y%m%d_%H%M%S')
+        timestamp = time.strftime('%Y-%m-%d-%H%M%S')
         filename = f'../data/people/{timestamp}.jpg'
         
         # 이미지 저장
         cv2.imwrite(filename, bgr_frame)
-        print(f'[알림] 사람이 5초 이상 감지되어 캡처되었습니다: {filename}')
-        time.sleep(300)
+        print(f'[알림] 사람이 {set_time}초 이상 감지되어 캡처되었습니다. ({filename})')
         
-        cooldown_until = current_time + set_time
+        cooldown_until = current_time + cooldown_time
         person_detected_start = None 
     
     # 감지된 사람의 영역에 초록색 사각형(바운딩 박스) 그리기
@@ -68,7 +68,7 @@ while True:
   # 화면에 프레임 출력
   cv2.imshow('Raspberry Pi 5 - Person Detection', bgr_frame)
 
-  if cv2.waitKey(1) in [27, 113]: break
+  if cv2.waitKey(100) in [27, 113]: break
 
 cam.stop()
 cv2.destroyAllWindows()
