@@ -2,9 +2,7 @@ import cv2
 from picamera2 import Picamera2
 
 cam = Picamera2()
-# cfg = cam.create_video_configuration(main={'size':(640,480)})
-cfg = cam.create_video_configuration(main={'size':(1280,720)})
-cam.configure(cfg)
+cam.configure(cam.create_video_configuration())
 cam.start()
 
 frame = cam.capture_array()
