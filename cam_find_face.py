@@ -44,9 +44,10 @@ while cam.isOpened():
         
         # 이미지 저장
         cv2.imwrite(f'../data/people/{filename}', frame)
-        messages = f'방문자가 {set_time}초 이상 감지되었습니다.'
-        msg.send_message(f'{messages}\n{filename}')
-        print(f'{messages}\n../data/people/{filename}')
+        
+        messages = f'방문자 {filename}'
+        msg.send_message(messages)
+        print(messages)
         
         cooldown_until = current_time + cooldown_time
         person_detected_start = None 
