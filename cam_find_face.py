@@ -11,7 +11,7 @@ face_cascade = cv2.CascadeClassifier(
 person_detected_start = None
 cooldown_until = 0
 cooldown_time = 60
-set_time = 1
+set_time = 2
 
 print('시스템 시작... 카메라 화면을 표시합니다.')
 print('(종료하려면 화면에서 ESC키를 누르세요)')
@@ -38,7 +38,7 @@ while cam.isOpened():
       cv2.putText(frame, f'Detecting: {elapsed_time:.1f}s',
         (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
       
-      # 5초 이상 지속적으로 감지되었고, 쿨다운 시간이 지났을 경우 캡처
+      # 2초 이상 지속적으로 감지되었고, 쿨다운 시간이 지났을 경우 캡처
       if elapsed_time > set_time and current_time > cooldown_until:
         filename = time.strftime('%Y-%m-%d-%H%M%S')
         # 이미지 저장
