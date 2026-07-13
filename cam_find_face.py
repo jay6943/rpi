@@ -1,4 +1,5 @@
 import cv2
+import msg
 import time
 
 cam = cv2.VideoCapture(0)
@@ -39,12 +40,13 @@ while cam.isOpened():
       
       # 5초 이상 지속적으로 감지되었고, 쿨다운 시간이 지났을 경우 캡처
       if elapsed_time > set_time and current_time > cooldown_until:
-        timestamp = time.strftime('%Y-%m-%d-%H%M%S')
-        filename = f'../data/people/{timestamp}.jpg'
+        filename = f'{time.strftime('%Y-%m-%d-%H%M%S')}.jpg'
         
         # 이미지 저장
-        cv2.imwrite(filename, frame)
-        print(f'[알림] 사람이 {set_time}초 이상 감지되어 캡처되었습니다. ({filename})')
+        cv2.imwrite(f'../data/people/{filename}', frame)
+        messages = f'방문자가 {set_time}초 이상 감지되었습니다.'
+        msg.send_message(f'{messages}\n{filename}')
+        print(f'{messages}\n../data/people/{filename}')
         
         cooldown_until = current_time + cooldown_time
         person_detected_start = None 
