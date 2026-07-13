@@ -40,11 +40,10 @@ while cam.isOpened():
       
       # 5초 이상 지속적으로 감지되었고, 쿨다운 시간이 지났을 경우 캡처
       if elapsed_time > set_time and current_time > cooldown_until:
-        filename = f'{time.strftime('%Y-%m-%d-%H%M%S')}.jpg'
-        
+        filename = time.strftime('%Y-%m-%d-%H%M%S')
         # 이미지 저장
-        cv2.imwrite(f'../data/people/{filename}', frame)
-        
+        cv2.imwrite(f'../data/people/{filename}.jpg', frame)
+        # 메세지 전송
         messages = f'방문자 {filename}'
         msg.send_message(messages)
         print(messages)
