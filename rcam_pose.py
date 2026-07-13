@@ -2,7 +2,7 @@ import cv2
 import picamera2
 import ultralytics
 
-model = ultralytics.YOLO('../yolo26n-pose.pt')
+model = ultralytics.YOLO('../data/yolo26n-pose.pt')
 
 cam = picamera2.Picamera2()
 # cam.preview_configuration.main.size = (1280, 720)

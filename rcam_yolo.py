@@ -3,7 +3,7 @@ import picamera2
 import ultralytics
 
 # YOLO 모델 로드 (사용하려는 가중치 파일 경로 입력)
-model = ultralytics.YOLO('../yolo26n.pt') 
+model = ultralytics.YOLO('../data/yolo26n.pt') 
 
 cam = picamera2.Picamera2()
 # YOLO 추론 속도를 높이고 메모리를 아끼기 위해 메인 스트림 해상도를 적절하게 조절합니다.
