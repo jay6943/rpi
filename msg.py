@@ -28,7 +28,7 @@ def send_image(filename, message=''):
     response = requests.post(webhook_url, data=data, files=files)
     
     # 5. 전송 결과 확인
-    if response.status_code == 200 or response.status_code == 204:
+    if response.status_code in [200, 204]:
       print("메시지와 이미지가 성공적으로 전송되었습니다!")
     else:
       print(f"전송 실패. 상태 코드: {response.status_code}")
@@ -47,7 +47,8 @@ def one_hour_stand_up():
       send_message(f'{now.strftime('%H:%M:%S')}, 운동하실 시간입니다.')
     
     # 다음 정각(예: 10:00:00)까지 남은 시간(초) 계산
-    next_hour = (now + dt.timedelta(hours=1)).replace(minute=0, second=0, microsecond=0)
+    next_hour = now + dt.timedelta(hours=1)
+    next_hour = next_hour.replace(minute=0, second=0, microsecond=0)
     sleep_seconds = (next_hour - now).total_seconds()
     
     # 다음 정각까지 프로그램 대기

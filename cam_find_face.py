@@ -14,12 +14,11 @@ cooldown_time = 60
 set_time = 2
 
 print('시스템 시작... 카메라 화면을 표시합니다.')
-print('(종료하려면 화면에서 ESC키를 누르세요)')
+print('종료하려면 화면에서 ESC키를 누르세요.')
 
 while cam.isOpened():
   # 카메라에서 프레임 가져오기 (RGB 포맷)
   success, frame = cam.read()
-  
   # HOG 처리를 위해 그레이스케일로 변환
   gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
   
@@ -38,12 +37,10 @@ while cam.isOpened():
       cv2.putText(frame, f'Detecting: {elapsed_time:.1f}s',
         (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
       
-      # 2초 이상 지속적으로 감지되었고, 쿨다운 시간이 지났을 경우 캡처
+      # 2초 이상 지속적으로 감지되었고, 쿨다운 시간이 지났을 경우 캡처하고 알림 전송
       if elapsed_time > set_time and current_time > cooldown_until:
         filename = time.strftime('%Y-%m-%d-%H%M%S')
-        # 이미지 저장
         cv2.imwrite(f'../data/people/{filename}.jpg', frame)
-        # 메세지 전송
         messages = f'방문자 {filename}'
         msg.send_message(messages)
         print(messages)
